@@ -1,0 +1,58 @@
+ID: cfdestinationapp
+_schema-version: '2.1'
+description: A multi-tenant enabled app for cf destination
+version: 1.0.0
+
+modules:
+
+  - name: cfdestinationbackend
+    type: nodejs
+    path: cfdestinationbackend
+    parameters:
+      disk-quota: 512M
+      memory: 512M
+    provides:
+      - name: cfdestinationbackend_api
+        properties:
+          backend_app_url: '${default-url}'
+    requires:
+      - name: cfdestination-uaa
+      - name: cfdestination-destination
+
+    properties:
+      SAP_JWT_TRUST_ACL:
+       - clientid: "*"
+         identityzone: "*"
+
+  - name: cfdestinationui
+    type: html5
+    path: cfdestinationui
+    parameters:
+      disk-quota: 512M
+      memory: 512M
+    build-parameters:
+      builder: grunt
+    requires:
+      - name: cfdestination-uaa
+      - name: cfdestinationbackend_api
+        group: destinations
+        properties:
+          name: cfdestinationbackend_api
+          url: '~{backend_app_url}'
+          forwardAuthToken: true
+    properties:
+      TENANT_HOST_PATTERN: "^(.*)-cfdestinationui.cfapps.eu10.hana.ondemand.com"
+
+resources:
+  - name: cfdestination-uaa
+    parameters:
+      path: ./xs-security.json
+      service-plan: application
+    type: com.sap.xs.uaa
+
+  - name: cfdestination-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite
+

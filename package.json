@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "ci-install": "npm install && cd src && npm install && cd .. ",
+    "ci-compile": "rm -rf dist/* && rm -rf cfdestinationbackend/* && npx tsc && cp -r dist/* cfdestinationbackend && cp src/package.json cfdestinationbackend",
+    "ci-build": "mbt build -p cf",
+    "ci-deploy": "cf deploy mta_archives/cfdestinationapp_1.0.0.mtar"
+  },
+  "dependencies": {
+    "typescript": "^3.9.6",
+    "@sap/cds": "^3.34",
+    "express": "^4.17.1",
+    "mbt": "^1.0.15"
+  }
+}

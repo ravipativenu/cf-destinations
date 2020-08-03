@@ -1,0 +1,19 @@
+{
+	"welcomeFile": "/cfdestinationui/index.html",
+	"authenticationMethod": "route",
+	"logout": {
+		"logoutEndpoint": "/logout"
+	},
+	"routes": [{
+		"source": "^/cfdestinationui/(.*)$",
+		"target": "$1",
+		"localDir": "webapp"
+	}, {
+		"source": "^/cfdestinationbackend/(.*)$",
+		"target": "$1",
+		"csrfProtection": true,
+		"authenticationType": "xsuaa",
+		"destination": "cfdestinationbackend_api"
+	}
+]
+}

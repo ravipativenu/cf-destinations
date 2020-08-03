@@ -1,0 +1,19 @@
+{
+  "name": "cfdestination-backend",
+  "version": "0.0.1",
+  "description": "",
+  "author": "Venu Ravipati",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@sap-cloud-sdk/core": "^1.19.0",
+    "@sap/xsenv": "^3.0",
+    "@sap/xssec": "^3.0",
+    "express": "^4.17.1",
+    "passport": "^0.4.1"
+  },
+  "devDependencies": {}
+}

@@ -1,0 +1,48 @@
+{
+	"xsappname": "cfdestination",
+	"tenant-mode": "shared",
+	"description": "Security profile of cfdestination app",
+	"scopes": [{
+		"name": "$XSAPPNAME.Callback",
+		"description": "With this scope set, the callbacks for tenant onboarding, offboarding and getDependencies can be called.",
+		"grant-as-authority-to-apps": [
+			"$XSAPPNAME(application,sap-provisioning,tenant-onboarding)"
+		]
+	},
+	{
+		"name": "$XSAPPNAME.read",
+		"description": "Read Scope"
+	},
+	{
+		"name": "uaa.user",
+		"description": "uaa.user"
+	}
+	],
+	"role-templates": [
+		{ 
+			"name":"MultitenancyCallbackRoleTemplate",
+			"description":"Call callback-services of applications",
+			"scope-references":[ 
+			   "$XSAPPNAME.Callback"
+			]
+		},
+		{
+			"name": "Viewer",
+			"description": "Viewer Role Template",
+			"scope-references": [
+				"$XSAPPNAME.read",
+				"uaa.user"
+			]
+		}
+	],
+	"role-collections": [
+		{
+			"name": "MyDestinationApplicationViewer",
+			"description": "My Destination Application Viewer",
+			"role-template-references": [
+				"$XSAPPNAME.Viewer",
+				"$XSAPPNAME.MultitenancyCallbackRoleTemplate"
+			]
+		}
+	]
+}
