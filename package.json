@@ -8,7 +8,7 @@
   "dependencies": {
     "typescript": "^3.9.6",
     "@sap/cds": "^3.34",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "mbt": "^1.0.15"
   }
 }
